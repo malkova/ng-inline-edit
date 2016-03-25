@@ -166,6 +166,9 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
             scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
+            scope.isInputPassword = attrs.hasOwnProperty('inlineEditPassword');
+            
+            var inputType = (scope.isInputPassword ? 'password' : 'text')
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -182,7 +185,7 @@
 
             var input = angular.element(
               (scope.isInputTextarea ?
-                '<textarea ' : '<input type="text" ') +
+                '<textarea ' : '<input type="'+inputType+'" ') +
                 'class="ng-inline-edit__input" ' +
                 'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
